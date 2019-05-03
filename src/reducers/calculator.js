@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as actionTypes from '../utils/actionTypes';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const initialAppState = {
+  inputValue: 0,
+  resultValue: 0,
+  showingResult: false,
+};
 
-export default App;
+const calculator = (state = initialAppState, action) => {
+  if (action.type === actionTypes.INPUT_NUMBER) {
+    return {
+      ...state,
+      inputValue: state.inputValue * 10 + action.number,
+      showingResult: false,
+    };
+  } else if (action.type === actionTypes.PLUS) {
+    return {
+      ...state,
+      inputValue: 0,
+      resultValue: state.resultValue + state.inputValue,
+      showingResult: true,
+    };
+  } else {
+    return state;
+  }
+};
+
+export default calculator;
